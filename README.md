@@ -20,13 +20,14 @@ Before using the solver, please note the following physical and mathematical ass
 - **Laminar Boundary Layer:** Solved using **Thwaites' Integral Method**, allowing for the calculation of the momentum thickness ($\theta$), displacement thickness ($\delta^*$), and wall shear stress ($\tau_w$).
 - **Turbulent Boundary Layer & Transition:** Extended via the **Buri parameter** to handle turbulent regimes, with flow separation predicted using **Alber's criterion**.
 - **VII Coupling Algorithm:** A weak coupling strategy where the inviscid flow provides the external velocity distribution, and the boundary layer solver feeds back the displacement thickness ($\delta^\*$) to virtually "thicken" the airfoil geometry. **When flow separation is predicted, $\delta^*$ is kept constant** (meaning the wake is not explicitly modeled). Subsequently, a **trailing edge "pinch"** (artificial closure of the displacement thickness) is enforced to prevent numerical divergence and ensure solver convergence. Due to this simplified post-separation treatment, the code is **not suitable for bluff bodies**, as demonstrated by the circular cylinder test case (you can try it yourself ;) ).
-- **Advanced Visualization:** High-quality, plotting capabilities, including 3D boundary layer extrusion and validation against the Blasius exact analytical solution.
+- **Advanced Visualization:** High-quality plotting capabilities, including 3D boundary layer extrusion and validation against the Blasius exact analytical solution. The boundary layer displacement thickness is artificially scaled up for better visual appreciation.
 
 ## Configuration & Input Parameters
 The solver can be easily configured by modifying the initial parameters directly within the main script. Users can adjust the following key variables to set up their custom simulation:
 - **Flow Conditions:** Reynolds number, fluid density, dynamic/kinematic viscosity, and angle of attack ($\alpha$).
 - **Geometry & Discretization:** Chord length, number of panels for the inviscid solver, and the specific airfoil geometry file.
 - **Study Case:** Switch between standard airfoil analysis (`'AIRFOIL'`) or flat plate validation (`'BLASIUS'`).
+- **Visualization Scaling:** Because the physical boundary layer is extremely thin, its thickness ($\delta^*$) is scaled up in the plots for better visual clarity. You can customize these multipliers by changing the `thickness_plot_scale` variable for 3D plots and the `scale_2d` variable for 2D plots.
 
 ### Available Airfoil Coordinates
 To run the solver on a specific geometry, you must manually update the coordinate file variable in the main script with the exact name of the `.dat` file. The repository comes pre-loaded with a variety of standard and high-performance airfoils:
