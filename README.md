@@ -20,23 +20,33 @@ Before using the solver, please note the following physical and mathematical ass
 - **Laminar Boundary Layer:** Solved using **Thwaites' Integral Method**, allowing for the calculation of the momentum thickness ($\theta$), displacement thickness ($\delta^*$), and wall shear stress ($\tau_w$).
 - **Turbulent Boundary Layer & Transition:** Extended via the **Buri parameter** to handle turbulent regimes, with flow separation predicted using **Alber's criterion**.
 - **VII Coupling Algorithm:** A weak coupling strategy where the inviscid flow provides the external velocity distribution, and the boundary layer solver feeds back the displacement thickness ($\delta^*$) to virtually "thicken" the airfoil geometry. A **trailing edge "pinch"** (artificial closure of the displacement thickness at the trailing edge) is enforced to prevent numerical wake divergence and ensure solver convergence.
-- **Advanced Visualization:** High-quality, publication-ready (600 DPI) plotting capabilities, including 3D boundary layer extrusion and validation against the Blasius exact analytical solution.
+- **Advanced Visualization:** High-quality, plotting capabilities, including 3D boundary layer extrusion and validation against the Blasius exact analytical solution.
 
 ## Validation & Results
-The model has been extensively validated against canonical theoretical cases (e.g., Blasius flat plate) and foil.tools data for standard airfoils (e.g., NACA 0010, NACA 23012).
+The model has been extensively validated against canonical theoretical cases (e.g., Blasius flat plate) and `foil.tools` data for standard airfoils (e.g., NACA 0010, NACA 23012).
 
-<img width="2624" height="1632" alt="BL" src="https://github.com/user-attachments/assets/34aad194-b57f-46d9-8e36-f0eacce93099" />
+> **Figure 1:** *Validation of the Thwaites integral method against the Blasius exact analytical solution for a flat plate.*
+> <img width="800" alt="BL" src="https://github.com/user-attachments/assets/34aad194-b57f-46d9-8e36-f0eacce93099" />
 
-<img width="2528" height="1664" alt="N0010" src="https://github.com/user-attachments/assets/8a039882-a9f6-40bb-a35e-bfe8520e7e37" />
-<img width="2496" height="1696" alt="N23012" src="https://github.com/user-attachments/assets/a2d42baf-b016-4d2d-a493-640497ef9c5c" />
+> **Figure 2:** *Aerodynamic polars (Lift and Drag coefficients) for the symmetric NACA 0010 airfoil, compared with foil.tools data.*
+> <img width="800" alt="N0010" src="https://github.com/user-attachments/assets/8a039882-a9f6-40bb-a35e-bfe8520e7e37" />
 
-> **Figure 1:** *Comparison of the Pressure Coefficient ($C_p$) distribution.*
+> **Figure 3:** *Aerodynamic polars for the cambered NACA 23012 airfoil, showing good agreement in the linear pre-stall region.*
+> <img width="800" alt="N23012" src="https://github.com/user-attachments/assets/a2d42baf-b016-4d2d-a493-640497ef9c5c" />
+
+### Solver Limitations (Post-Stall & Massive Separation)
+To transparently highlight the physical boundaries of the weakly coupled VII approach, the solver was also tested on high-camber geometries (e.g., the **Eppler 421** airfoil) and at high angles of attack. Under these conditions, massive flow separation occurs. Because the current model does not include a dead-air wake formulation, the weak coupling breaks down, leading to an overprediction of lift and an inability to capture deep post-stall aerodynamics.
+
+> **Figure 4:** *Example of solver limitations on the Eppler 421 airfoil. The divergence from reference data highlights the breakdown of the weak viscous-inviscid coupling during massive separation.*
+> <img width="2574" height="1664" alt="E421" src="https://github.com/user-attachments/assets/54272c57-aa6d-4ada-ac77-7ced6a25d7b2" />
+
+> **Figure 5:** *Comparison of the Pressure Coefficient ($C_p$) distribution.*
 > <img width="2528" height="1682" alt="Cp" src="https://github.com/user-attachments/assets/c984a5ac-3661-4a65-a8b0-1690eaa202fc" />
 
-> **Figure 2a:** *3D visualization of the boundary layer displacement thickness for a b737d (Boeing) airfoil. Note that the boundary layer thickness has been artificially scaled up for better visual appreciation.*
+> **Figure 6a:** *3D visualization of the boundary layer displacement thickness for a b737d (Boeing) airfoil. Note that the boundary layer thickness has been artificially scaled up for better visual appreciation.*
 > <img width="3008" height="1408" alt="3D" src="https://github.com/user-attachments/assets/f6742d55-5ca4-4093-8802-aa1c37a736a5" />
 
-> **Figure 2b:** *2D visualization of the same scaled boundary layer displacement thickness over the airfoil.*
+> **Figure 6b:** *2D visualization of the same scaled boundary layer displacement thickness over the airfoil.*
 > <img width="3136" height="1344" alt="2D" src="https://github.com/user-attachments/assets/7979104c-d319-4968-b160-55c9f5aae35e" />
 
 
@@ -45,7 +55,3 @@ The model has been extensively validated against canonical theoretical cases (e.
 ### Prerequisites
 - MATLAB (The code has been written using standard MATLAB libraries. No specific toolboxes are strictly required, but verify compatibility with your version).
 
-### Usage
-1. Clone the repository to your local machine:
-   ```bash
-   git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
