@@ -19,8 +19,32 @@ Before using the solver, please note the following physical and mathematical ass
 - **Inviscid Potential Flow Solver:** A low-order surface-panel method utilizing **constant-strength distributed sources and doublets** (unlike higher-order linear/quadratic methods). It is closed by the Kutta condition to ensure physically accurate circulation and lift generation.
 - **Laminar Boundary Layer:** Solved using **Thwaites' Integral Method**, allowing for the calculation of the momentum thickness ($\theta$), displacement thickness ($\delta^*$), and wall shear stress ($\tau_w$).
 - **Turbulent Boundary Layer & Transition:** Extended via the **Buri parameter** to handle turbulent regimes, with flow separation predicted using **Alber's criterion**.
-- **VII Coupling Algorithm:** A weak coupling strategy where the inviscid flow provides the external velocity distribution, and the boundary layer solver feeds back the displacement thickness ($\delta^*$) to virtually "thicken" the airfoil geometry. A **trailing edge "pinch"** (artificial closure of the displacement thickness at the trailing edge) is enforced to prevent numerical wake divergence and ensure solver convergence.
+- **VII Coupling Algorithm:** A weak coupling strategy where the inviscid flow provides the external velocity distribution, and the boundary layer solver feeds back the displacement thickness ($\delta^*$) to virtually "thicken" the airfoil geometry. **When flow separation is predicted, $\delta^*$ is kept constant** (meaning the wake is not explicitly modeled). Subsequently, a **trailing edge "pinch"** (artificial closure of the displacement thickness) is enforced to prevent numerical divergence and ensure solver convergence. Due to this simplified post-separation treatment, the code is **not suitable for bluff bodies**, as demonstrated by the circular cylinder test case (you can try it yourself ;) ).
 - **Advanced Visualization:** High-quality, plotting capabilities, including 3D boundary layer extrusion and validation against the Blasius exact analytical solution.
+
+## Configuration & Input Parameters
+The solver can be easily configured by modifying the initial parameters directly within the main script. Users can adjust the following key variables to set up their custom simulation:
+- **Flow Conditions:** Reynolds number, fluid density, dynamic/kinematic viscosity, and angle of attack ($\alpha$).
+- **Geometry & Discretization:** Chord length, number of panels for the inviscid solver, and the specific airfoil geometry file.
+- **Study Case:** Switch between standard airfoil analysis (`'AIRFOIL'`) or flat plate validation (`'BLASIUS'`).
+
+### Available Airfoil Coordinates
+To run the solver on a specific geometry, you must manually update the coordinate file variable in the main script with the exact name of the `.dat` file. The repository comes pre-loaded with a variety of standard and high-performance airfoils:
+
+| Filename | Geometry / Airfoil Type |
+| :--- | :--- |
+| `ag16_coords.dat` | AG16 |
+| `ah83159_coords.dat` | AH 83-159 |
+| `b737d_coords.dat` | Boeing 737 (b737d) |
+| `circle_coords.dat` | Circular cylinder |
+| `e421_coords.dat` | Eppler 421 |
+| `n0010_coords.dat` | NACA 0010 (Symmetric) |
+| `n2412_coords.dat` | NACA 2412 |
+| `n23012_coords.dat` | NACA 23012 |
+| `n4418_coords.dat` | NACA 4418 |
+| `n64a410_coords.dat` | NACA 64A410 |
+| `raf89_coords.dat` | RAF 89 |
+
 
 ## Validation & Results
 The model has been extensively validated against canonical theoretical cases (e.g., Blasius flat plate) and `foil.tools` data for standard airfoils (e.g., NACA 0010, NACA 23012).
