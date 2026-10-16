@@ -8,6 +8,8 @@ This repository contains the MATLAB source code for a 2D aerodynamic solver deve
 
 The code evaluates the aerodynamic performance of 2D airfoils by relying on a **weakly coupled Viscous-Inviscid Interaction (VII)** approach. It circumvents the computational cost of full Navier-Stokes (CFD) simulations by coupling a potential flow solver with an integral boundary layer solver, providing fast and reliable estimations of pressure distributions, lift, drag, and flow separation for pre-stall conditions.
 
+> **Full Thesis:** For a deep dive into the mathematical formulation and theoretical background, you can [read the full Thesis PDF here (Italian)](docs/Tesi_VII_Solver_Bunino.pdf).
+
 ## Scope & Assumptions
 Before using the solver, please note the following physical and mathematical assumptions underlying the code:
 - **Incompressible Flow:** The fluid is assumed to have constant density (Mach number < 0.3).
