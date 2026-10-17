@@ -11,7 +11,7 @@ chord = 1.0;
 U_inf = reynolds_number * dynamic_viscosity / (rho * chord);
 alpha = deg2rad(0);
 num_panels = 160;
-coordinate_file = 'circle_coords.dat';
+coordinate_file = 'n0010_coords.dat';
 load('Tab_Thwaites.mat');
 
 % Select the requested simulation case
